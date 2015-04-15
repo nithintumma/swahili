@@ -264,3 +264,11 @@ def lesson_change(request):
 Past simple sentences, we want to allow the reflexive, question words
 """
 
+# noun phrases:
+"""
+{'noun': Noun object,
+'adjs' = [Adjective objects],
+'possesive' = 
+'demonstrative' = 
+}
+"""

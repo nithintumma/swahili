@@ -24,7 +24,8 @@ class ChartWord(models.Model):
             ('sp', 'subject_prefix'),
             ('np', 'negative_prefix'),
             ('op', 'object_prefix'),
-            ('ap', 'adjective_prefix')
+            ('ap', 'adjective_prefix'),
+            ('a', 'associative')
             )
     word_type = models.CharField(max_length=2, choices=TYPE_CHOICES)
     nc1 = models.CharField(max_length=200, default='h')
@@ -80,3 +81,11 @@ class QuestionWord(models.Model):
     end = models.BooleanField(default=True)
     def __unicode__(self):
         return self.word
+
+class Possessive(models.Model):
+    stem = models.CharField(max_length=200)
+    english_translation = models.CharField(max_length=200)
+    chart_type = models.ForeignKey(ChartWord)
+    def __unicode__(self):
+        return self.stem
+
