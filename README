@@ -1,0 +1,7 @@
+Need to construct a backend model of the language that allows us to have words and their associated prefixes for each noun class. This will be used for noun phrases. 
+
+Also, need to represent the chart somewhere in the code 
+
+Start simple, replicate the frontend using dictionaries.
+
+
