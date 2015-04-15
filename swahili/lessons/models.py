@@ -78,4 +78,5 @@ class QuestionWord(models.Model):
     english_translation = models.CharField(max_length=200)
     # denotes wether the word should appear at the end of the question
     end = models.BooleanField(default=True)
-
+    def __unicode__(self):
+        return self.word

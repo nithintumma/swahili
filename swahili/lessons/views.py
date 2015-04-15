@@ -137,19 +137,22 @@ def gen_random_sentence():
     """
     creates a random valid simple sentence 
     """
-    # get random subject
     sentence = empty_sentence()
 
+    # get random subject
     subject = SubjectPronoun.objects.order_by('?')[0] 
     sentence['subject'] = subject 
 
+    # get random verb
     verb = Verb.objects.order_by('?')[0] 
     verb_dict = empty_verb()
     verb_dict['vr'] = verb
+    # get random tense
     tense = random_tense()
     verb_dict = conjugate_verb(verb_dict, tense)
     sentence['verb'] = verb_dict
 
+    # make resulting sentence grammatical
     sentence = fix(sentence, 'subject')
     
     #TODO: add logic to deal with noun/verb tags
@@ -178,6 +181,27 @@ def gen_all_sentences():
     return all_sentences
 
 NEG_TENSE_MARKER = {'na': '', 'me': 'ja', 'li': 'ku', 'ta': 'ta'}
+REV_NEG_TENSE_MARKER = {v: k for k, v in NEG_TENSE_MARKER.items()}
+
+def un_negate_sentence(sentence):
+    """
+    input: negated sentence
+    output: positive version of sentence
+    """
+    pos_sentence = copy.copy(sentence)
+    pos_sentence['neg'] = False
+    subject = sentence['subject']
+    verb_dict = sentence['verb']
+    # present tense, revert to standard verb root 
+    if verb_dict['tm'] == '':
+        pos_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'a'
+
+    # set the right tense marker 
+    pos_sentence['verb']['tm'] = REV_NEG_TENSE_MARKER[verb_dict['tm']] 
+    # set the right subject prefix given the subject
+    pos_sentence = fix(pos_sentence, 'subject')
+    return pos_sentence
+
 def negate_sentence(sentence):
     """
     negation rules
@@ -188,20 +212,16 @@ def negate_sentence(sentence):
     neg_sentence = copy.copy(sentence) 
     subject = sentence['subject']
     verb_dict = sentence['verb']
-    neg_sentence['verb'] = verb_dict
+    #neg_sentence['verb'] = verb_dict
     neg_sentence['verb']['sp'] = subject.neg_prefix
        
-    # present tense 
+    # present tense modify verb root
     if verb_dict['tm'] == 'na':
         neg_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'i'
         
     neg_sentence['verb']['tm'] = NEG_TENSE_MARKER[verb_dict['tm']]
     neg_sentence['neg'] = True
     return neg_sentence
-
-def un_negate_sentence(sentence):
-    sentence['neg'] = False
-    return sentence 
 
 def sentence_to_text(sentence):
     """
@@ -223,6 +243,7 @@ def sentence_to_text(sentence):
 #
 def lesson_home(request):
     rand_sentence = gen_random_sentence()
+    rand_sentence = rand_sentence
     data = {'sentence': sentence_to_text(rand_sentence)}
     data['all_data'] = gen_all_sentences()
     return HttpResponse(json.dumps(data), content_type='application/json')
@@ -236,4 +257,10 @@ def lesson_change(request):
     fixed_sentence = sentence_to_text(fix(sentence, changed_marker))
     data = {'sentence': fixed_sentence}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+#############################################################################################
+"""
+Past simple sentences, we want to allow the reflexive, question words
+"""
 
