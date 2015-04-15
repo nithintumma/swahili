@@ -38,6 +38,7 @@ class ChartWord(models.Model):
     nc9 = models.CharField(max_length=200, default='h')
     nc10 = models.CharField(max_length=200, default='h')
     nc11 = models.CharField(max_length=200, default='h')
+    nc12 = models.CharField(max_length=200, default='h')
     nc13 = models.CharField(max_length=200, default='h')
     nc14 = models.CharField(max_length=200, default='h')
     nc15 = models.CharField(max_length=200, default='h')

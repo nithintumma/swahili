@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from models import Verb, ChartWord, Tags, Adjective, SubjectPronoun, Noun
 import random 
 import json
+import copy
 
 # Create your views here.
 
@@ -57,6 +58,18 @@ def set_subject_from_prefix(sentence):
     sp = sentence['verb']['sp'] 
     subject = SubjectPronoun.objects.filter(subject_prefix=sp)[0]
     sentence['subject'] = subject
+    return sentence
+
+def set_object_prefix(sentence):
+    """
+    assume sentence has object
+    want to update object prefix ov the verb
+    """
+    obj = sentence['obj']
+    n_class = obj.noun_class
+    obj_prefixes = ChartWord.objects.get(word_type='op')
+    op = getattr(obj_prefixes, 'nc' + str(n_class))
+    sentence['verb']['op'] = op
     return sentence
 
 # if you change subject, we need to change the subject prefix accordingly 
@@ -128,8 +141,8 @@ def gen_all_sentences():
                             'sps': sps,
                             'tms': TENSE_MARKERS, 
                             'ops': [],
-                            'vrs': verb_roots},
-                     'objs': all_nouns}
+                            'vrs': verbs},
+                     'objs': nouns}
     return all_sentences
 
 NEG_TENSE_MARKER = {'na': '', 'me': 'ja', 'li': 'ku', 'ta': 'ta'}
@@ -140,15 +153,15 @@ def negate_sentence(sentence):
     if sentence.get('neg'):
         return un_negate_sentence(sentence) 
         
-    neg_sentence = empty_sentence()
+    neg_sentence = copy.copy(sentence) 
     subject = sentence['subject']
     verb_dict = sentence['verb']
-
+    neg_sentence['verb'] = verb_dict
     neg_sentence['verb']['sp'] = subject.neg_prefix
-   
+       
     # present tense 
     if verb_dict['tm'] == 'na':
-        neg_sentence['verb'['vr']] = verb_dict['vr'][:-1] + 'i'
+        neg_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'i'
         
     neg_sentence['verb']['tm'] = NEG_TENSE_MARKER[verb_dict['tm']]
     neg_sentence['neg'] = True
@@ -167,7 +180,12 @@ def sentence_to_text(sentence):
     text['verb'] = sentence['verb']
     text['verb']['vr'] = text['verb']['vr'].infinitive
     text['obj'] = sentence['obj'].noun
+    if sentence.get('neg'):
+        text['neg'] = True
+    else:
+        text['neg'] = False
     return text
+
 #
 # VIEW FUNCTIONS
 #
@@ -175,7 +193,7 @@ def lesson_home(request):
     rand_sentence = gen_random_sentence()
     data = {'sentence': sentence_to_text(rand_sentence)}
     data['all_data'] = gen_all_sentences()
-    return HttpResponse(json.dumps(data), mimetype='application/json')
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 def lesson_change(request):
     """
@@ -185,5 +203,5 @@ def lesson_change(request):
     sentence = json.loads(request.POST.get('sentence'))
     fixed_sentence = sentence_to_text(fix(sentence, changed_marker))
     data = {'sentence': fixed_sentence}
-    return HttpResponse(json.dumps(data), mimetype='application/json')
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
