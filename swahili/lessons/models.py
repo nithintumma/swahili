@@ -22,14 +22,29 @@ class ChartWord(models.Model):
             ('p', 'possesive'),
             ('d', 'demonstrative'),
             ('sp', 'subject_prefix'),
+            ('np', 'negative_prefix'),
             ('op', 'object_prefix'),
-            ('na', 'neg_adjective')
+            ('ap', 'adjective_prefix')
             )
     word_type = models.CharField(max_length=2, choices=TYPE_CHOICES)
-    nc1 = models.CharField(max_length=200)
-    nc2 = models.CharField(max_length=200)
-    nc3 = models.CharField(max_length=200)
-    nc4 = models.CharField(max_length=200)
+    nc1 = models.CharField(max_length=200, default='h')
+    nc2 = models.CharField(max_length=200, default='h')
+    nc3 = models.CharField(max_length=200, default='h')
+    nc4 = models.CharField(max_length=200, default='h')
+    nc5 = models.CharField(max_length=200, default='h')
+    nc6 = models.CharField(max_length=200, default='h')
+    nc7 = models.CharField(max_length=200, default='h')
+    nc8 = models.CharField(max_length=200, default='h')
+    nc9 = models.CharField(max_length=200, default='h')
+    nc10 = models.CharField(max_length=200, default='h')
+    nc11 = models.CharField(max_length=200, default='h')
+    nc13 = models.CharField(max_length=200, default='h')
+    nc14 = models.CharField(max_length=200, default='h')
+    nc15 = models.CharField(max_length=200, default='h')
+    nc16 = models.CharField(max_length=200, default='h')
+    nc17 = models.CharField(max_length=200, default='h')
+    nc18 = models.CharField(max_length=200, default='h')
+
     def __unicode__(self):
         return self.word_type
 

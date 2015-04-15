@@ -155,7 +155,7 @@ def negate_sentence(sentence):
     return neg_sentence
 
 def un_negate_sentence(sentence):
-    sentence{'neg'} = False
+    sentence['neg'] = False
     return sentence 
 
 def sentence_to_text(sentence):
