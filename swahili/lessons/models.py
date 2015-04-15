@@ -61,6 +61,7 @@ class SubjectPronoun(models.Model):
     pronoun = models.CharField(max_length=200)
     english_translation = models.CharField(max_length=200)
     subject_prefix = models.CharField(max_length=200)
+    object_prefix = models.CharField(max_length=200, default='w')
     neg_prefix = models.CharField(max_length=200, default='ha')
     def __unicode__(self):
         return self.pronoun
@@ -71,3 +72,10 @@ class Noun(models.Model):
     noun_class = models.IntegerField()
     def __unicode__(self):
         return self.noun
+
+class QuestionWord(models.Model):
+    word = models.CharField(max_length=200)
+    english_translation = models.CharField(max_length=200)
+    # denotes wether the word should appear at the end of the question
+    end = models.BooleanField(default=True)
+

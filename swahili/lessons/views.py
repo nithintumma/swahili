@@ -45,30 +45,62 @@ def conjugate_verb(verb_dict, tense):
 # generate a random correct sentence (what is a sentence)
 # randomly choose this part
 
-def set_subject_prefix(sentence):
+def get_chart_type(w_type):
     """
-    subject is a subject_prefix object
+    returns the ChartWord object of the correct type
+    e.g. w_type = 'possesive', ''
     """
-    subject = sentence['subject']
-    sp = subject.subject_prefix
-    sentence['verb']['sp'] = sp
-    return sentence 
+    return ChartWord.objects.get(word_type=w_type)
 
-def set_subject_from_prefix(sentence):
+def get_chart_prefix(w_type, n_class):
+    """
+    helper function to get the chart prefix for a word type and a noun class
+    e.g., w_type = 'sp' (subject_prefix), n_class = 4 -> 'i'
+    """
+    chart_type = get_chart_word(w_type)
+    prefix = getattr(chart_type, 'nc' + str(n_class))
+    return prefix 
+
+def set_subject_pronoun_from_prefix(sentence):
+    """
+    Assumes that the sp corresponds to a pronoun  
+    """
+    #TODO: allow arbitrary subject prefix, populate with a random noun from that class
     sp = sentence['verb']['sp'] 
     subject = SubjectPronoun.objects.filter(subject_prefix=sp)[0]
     sentence['subject'] = subject
     return sentence
 
+def set_subject_prefix(sentence):
+    """
+    sets the correct subject prefix given the subject of the input sentence 
+    subject is either a subject_prefix object or a noun 
+    """
+    subject = sentence['subject']
+    if isinstance(subject, SubjectPronoun): 
+        sp = subject.subject_prefix
+    elif isinstance(subject, Noun):
+        sp = get_chart_prefix('sp', subject.noun_class)
+    else:
+        raise Exception("Not supported subject type (pronoun, noun)")
+    sentence['verb']['sp'] = sp
+    return sentence 
+
 def set_object_prefix(sentence):
     """
+    @input 
     assume sentence has object
-    want to update object prefix ov the verb
+    want to update object prefix of the verb
+    Allows object to be a noun or a pronoun (mimi, wewe, etc.)
     """
     obj = sentence['obj']
-    n_class = obj.noun_class
-    obj_prefixes = ChartWord.objects.get(word_type='op')
-    op = getattr(obj_prefixes, 'nc' + str(n_class))
+    if isinstance(obj, SubjectPronoun):
+        op = obj.object_prefix
+    elif isinstance(obj, Noun):
+        op = get_chart_prefix('op', obj,noun_class)
+    else:
+        raise Exception("Not supported object type (pronoun, noun)")
+
     sentence['verb']['op'] = op
     return sentence
 
