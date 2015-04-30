@@ -117,7 +117,7 @@ def fix(sentence, changed_elt):
     if changed_elt == 'subject':
         return set_subject_prefix(sentence)
     elif changed_elt == 'sp':
-        return set_subject_from_prefix(sentence)
+        return set_subject_pronoun_from_prefix(sentence)
     #TODO: below cases
     elif changed_elt == 'verb':
         # call get_verb_objects on new verb, pass up list of new allowed objects
@@ -283,8 +283,9 @@ def dictionary_to_sentence(dictionary):
 # this sends a random sentence to the frontend
 def lesson_home(request):
     rand_sentence = gen_random_sentence()
-    rand_sentence = rand_sentence
-    data = {'sentence': rand_sentence}
+    rand_sentence_dictionary = sentence_to_dictionary(rand_sentence)
+
+    data = {'sentence': rand_sentence_dictionary}
     data['sentence_text'] = sentence_to_text(rand_sentence)
     data['all_data'] = gen_all_sentences()
     #return HttpResponse(json.dumps(data), content_type='application/json')
@@ -295,8 +296,13 @@ def lesson_change(request):
     when something dynamic happens, we need the sentence after the change, and the position marker that changed
     """
     changed_elt = json.loads(request.POST.get('changed'))
-    sentence = json.loads(request.POST.get('sentence'))
-    fixed_sentence = sentence_to_text(fix(sentence, changed_marker))
+    sentence_dictionary = json.loads(request.POST.get('sentence'))
+    sentence = dictionary_to_sentence(sentence_dictionary)
+
+    fixed_sentence = fix(sentence, changed_marker)
+
+    fixed_sentence_dictionary = sentence_to_dictionary(fixed_sentence)
+
     data = {'sentence': fixed_sentence}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
