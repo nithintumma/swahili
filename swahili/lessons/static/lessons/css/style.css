@@ -9,5 +9,7 @@ body {
 
 .component {	
 	display: inline-block;
+	width: 30px;
+	padding-right: 10px;
 }
 
