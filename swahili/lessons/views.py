@@ -267,13 +267,13 @@ def dictionary_to_sentence(dictionary):
 
     sentence["verb"] = {}
     sentence["verb"]["tm"] = dictionary["verb"]["tm"]
-    sentence["verb"]["vr"] = Verb.objects.get(infinitive=dictionary["verb"]["vr"].infinitive)
+    sentence["verb"]["vr"] = Verb.objects.get(infinitive=dictionary["verb"]["vr"])
     sentence["verb"]["sp"] = dictionary["verb"]["sp"]
     sentence["verb"]["op"] = dictionary["verb"]["op"]
 
     sentence["obj"] = Noun.objects.get(noun=dictionary["obj"].noun)
 
-    sentence["subject"] = SubjectPronoun.objects.get(pronoun=dictionary["subject"].pronoun)
+    sentence["subject"] = SubjectPronoun.objects.get(pronoun=dictionary["subject"])
     
     return sentence
 
