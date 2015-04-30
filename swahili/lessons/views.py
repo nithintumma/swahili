@@ -271,7 +271,7 @@ def dictionary_to_sentence(dictionary):
     sentence["verb"]["sp"] = dictionary["verb"]["sp"]
     sentence["verb"]["op"] = dictionary["verb"]["op"]
 
-    sentence["obj"] = Noun.objects.get(noun=dictionary["obj"].noun)
+    sentence["obj"] = Noun.objects.get(noun=dictionary["obj"])
 
     sentence["subject"] = SubjectPronoun.objects.get(pronoun=dictionary["subject"])
     
