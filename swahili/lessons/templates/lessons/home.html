@@ -1,5 +1,77 @@
-Hey, this page worked!
 
-Text: {{sentence_text}}
-Sentence: {{sentence}}
-Data: {{all_data}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	{% load staticfiles %}
+
+    <meta charset="utf-8">
+    <title>Swahili Subject-Verb Agreement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <link rel="stylesheet" href="{% static 'lessons/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'lessons/css/bootswatch.css' %}">
+    <link rel="stylesheet" href="{% static 'lessons/css/style.css' %}">   
+
+    <script src="{% static 'lessons/js/jquery.js' %}" charset="utf-8"></script>
+       
+
+    <script>            
+    </script>
+
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">Interactive Swahili Grammar</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Nithin Tumma and Neel Patel</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="body-container">
+      <select class="form-control component" id="subject">
+      	{%for subject in all_sentences.subjects%}
+      		<option value="{{subject}}">{{subject}}</option>        
+      	{%endfor%}
+      </select>
+
+      <select class="form-control component" id="subject-prefix" >
+        {%for sp in all_sentences.verbs.sps%}
+      		<option value="{{sp}}">{{sp}}</option>        
+      	{%endfor%}
+      </select>
+
+      <span class="component" id="tense">
+        {%for tm in all_sentences.verbs.tms%}
+      		<option value="{{tm}}">{{tm}}</option>        
+      	{%endfor%}
+      </span>
+
+      <select class="form-control component" id="verb-root" >
+        {%for vr in all_sentences.verbs.vrs%}
+      		<option value="{{vr}}">{{vr}}</option>        
+      	{%endfor%}
+      </select>
+
+      <select class="form-control component" id="object" >    
+      	{%for object in all_sentences.obs%}
+      		<option value="{{object}}">{{object}}</option>        
+      	{%endfor%}    
+      </select>
+    </div>    
+  </body>
+</html>

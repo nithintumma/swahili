@@ -1,0 +1,13 @@
+body {
+
+}
+
+#body-container {
+	padding:10px;
+	margin-top:64px;
+}
+
+.component {	
+	display: inline-block;
+}
+
