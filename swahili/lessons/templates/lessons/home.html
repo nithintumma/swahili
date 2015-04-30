@@ -55,11 +55,11 @@
       	{%endfor%}
       </select>
 
-      <span class="component" id="tense">
+      <select class="form-control component" id="tense">
         {%for tm in all_sentences.verbs.tms%}
       		<option value="{{tm}}">{{tm}}</option>        
       	{%endfor%}
-      </span>
+      </select>
 
       <select class="form-control component" id="verb-root" >
         {%for vr in all_sentences.verbs.vrs%}
