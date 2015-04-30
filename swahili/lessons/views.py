@@ -254,8 +254,8 @@ def sentence_to_text(sentence):
 def lesson_home(request):
     rand_sentence = gen_random_sentence()
     rand_sentence = rand_sentence
-    data = {'sentence': rand_sentence
-    data['sentence_text'] = sentence_to_text(rand_sentence)}
+    data = {'sentence': rand_sentence}
+    data['sentence_text'] = sentence_to_text(rand_sentence)
     data['all_data'] = gen_all_sentences()
     #return HttpResponse(json.dumps(data), content_type='application/json')
     return render("swahili/home.html", data)
