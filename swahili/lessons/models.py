@@ -51,7 +51,7 @@ class ChartWord(models.Model):
         return self.word_type
 
 class Adjective(models.Model):
-    adjective = models.CharField(max_length=200)
+    stem = models.CharField(max_length=200)
     english_translation = models.CharField(max_length=200)
     exceptions = JSONField(blank=True)
     tags = models.ManyToManyField(Tags, blank=True)
@@ -71,8 +71,9 @@ class Noun(models.Model):
     noun = models.CharField(max_length=200)
     english_translation = models.CharField(max_length=200)
     noun_class = models.IntegerField()
+    tags = models.ManyToManyField(Tags, blank=True)
     def __unicode__(self):
-        return self.noun
+        return str(self.noun_class) + ": " + self.noun
 
 class QuestionWord(models.Model):
     word = models.CharField(max_length=200)

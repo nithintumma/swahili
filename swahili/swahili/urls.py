@@ -8,5 +8,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     url(r'^lesson/', 'lessons.views.lesson_home'),
     url(r'^lessonchange/', 'lessons.views.lesson_change'),
+    url(r'^lessonrandomnphrase', 'lessons.views.lesson_random_nphrase'),
+    url(r'^lessonquestion', 'lessons.views.lesson_random_question'),
     url(r'^admin/', include(admin.site.urls)),
 ]
