@@ -285,7 +285,7 @@ def lesson_home(request):
     rand_sentence = gen_random_sentence()
     rand_sentence_dictionary = sentence_to_dictionary(rand_sentence)
 
-    data = {'sentence': rand_sentence_dictionary}
+    data = {'sentence': json.dumps(rand_sentence_dictionary)}
     data['sentence_text'] = sentence_to_text(rand_sentence)
     data['all_sentences'] = gen_all_sentences()
     #return HttpResponse(json.dumps(data), content_type='application/json')
