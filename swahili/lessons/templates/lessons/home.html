@@ -20,8 +20,20 @@
     <script>            
     	var sentence = {{sentence|safe}};
 
+    	//sentences are of the format
+    	//{"verb":{"vr":"penda","tm":"na","op":"","sp":"m"},"obj":"gari","subject":"Ninyi"}
     	function getCurrentSentenceDictionary() {
-    		return {}
+    		var dictionary = {};
+
+    		dictionary['obj'] = $("#object").val();
+    		dictionary['subject'] = $("#subject").val();
+
+    		dictionary['verb'] = {};
+    		dictionary['verb']['vr'] = $("#verb-root").val();
+    		dictionary['verb']['tm'] = $("#tense").val();
+    		dictionary['verb']['sp'] = $("#subject-prefix").val();
+
+    		return dictionary;
     	}
     </script>
 
@@ -73,7 +85,7 @@
       </select>
 
       <select class="form-control component" id="object" >    
-      	{%for object in all_sentences.obs%}
+      	{%for object in all_sentences.objs%}
       		<option value="{{object}}">{{object}}</option>        
       	{%endfor%}    
       </select>
