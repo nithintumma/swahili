@@ -150,7 +150,7 @@ def gen_random_sentence():
 
     # get random subject
     subject = SubjectPronoun.objects.order_by('?')[0]
-    sentence['subject'] = subject
+    sentence['subject'] = subject    
 
     # get random verb
     verb = Verb.objects.order_by('?')[0]
@@ -246,6 +246,36 @@ def sentence_to_text(sentence):
     else:
         text['neg'] = False
     return text
+
+def sentence_to_dictionary(sentence):
+    dictionary = {}
+
+    dictionary["verb"] = {}
+    dictionary["verb"]["tm"] = sentence["verb"]["tm"]
+    dictionary["verb"]["vr"] = sentence["verb"]["vr"].infinitive
+    dictionary["verb"]["sp"] = sentence["verb"]["sp"]
+    dictionary["verb"]["op"] = sentence["verb"]["op"]
+
+    dictionary["obj"] = sentence["obj"].noun
+
+    dictionary["subject"] = sentence["subject"].pronoun
+
+    return dictionary
+
+def dictionary_to_sentence(dictionary):
+    sentence = {}
+
+    sentence["verb"] = {}
+    sentence["verb"]["tm"] = dictionary["verb"]["tm"]
+    sentence["verb"]["vr"] = Verb.objects.get(infinitive=dictionary["verb"]["vr"].infinitive)
+    sentence["verb"]["sp"] = dictionary["verb"]["sp"]
+    sentence["verb"]["op"] = dictionary["verb"]["op"]
+
+    sentence["obj"] = Noun.objects.get(noun=dictionary["obj"].noun)
+
+    sentence["subject"] = SubjectPronoun.objects.get(pronoun=dictionary["subject"].pronoun)
+    
+    return sentence
 
 #
 # VIEW FUNCTIONS
