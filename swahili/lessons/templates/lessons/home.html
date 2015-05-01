@@ -140,7 +140,7 @@
 					complete: function( response ) {
 						console.log(response);		
 
-						var updatedSentence = JSON.parse(response['responseText']);
+						var updatedSentence = JSON.parse(response['responseText'])['sentence'];
 
 						console.log(updatedSentence);
 
