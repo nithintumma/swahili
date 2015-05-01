@@ -178,8 +178,10 @@
 
     		$("#addNewSentence").on("click", function() {
     			var sentenceRow = $($(".sentenceHolder")[0]).clone();
+
     			$("#sentences").append(sentenceRow);
 
+    			getRandomSentence(sentenceRow);
     		})
     	})
     </script>
