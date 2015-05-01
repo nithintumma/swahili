@@ -205,14 +205,14 @@
     					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).css("display", "inline")
     					//$(matchingOptions[i]).closest(".componentHolder").css("border-bottom", "solid 2px rgb(33,150,233)")
     					var correctValue = $(matchingOptions[i]).val();
-    					$($(matchingOptions[i]).closest(".userCheck")).data("correct", correctValue);
+    					$($(matchingOptions[i]).closest(".userCheck")).data("correct", correctValue.toLowerCase());
     				}
     			}
     		})
 
 			//checks if the user input value is correct
 			$("body").on("keyup", ".userCheck", function() {
-				var currentValue = $(this).val();
+				var currentValue = $(this).val().toLowerCase();
 				var correctValue = $(this).data("correct");
 
 				var componentHolder = $(this).closest(".componentHolder");
