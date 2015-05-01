@@ -209,62 +209,67 @@
     </div>
 
     <div class="container" id="body-container">
-    	<div class="container" id="sentences">
-			<div class="container sentenceHolder" id="sentence1">
-				<div class="row">
-					<div class="col-md-10">
-				      <select class="form-control component subject" data-name="subject">
-				      	{%for subject in all_sentences.subjects%}
-				      		<option value="{{subject}}">{{subject}}</option>        
-				      	{%endfor%}
-				      </select>
+	    <div class="col-xs-2">
+	    	Settings
+	    </div>
+	    <div class="col-xs-10">
+	    	<div class="container" id="sentences">
+				<div class="container sentenceHolder" id="sentence1">
+					<div class="row">
+						<div class="col-md-10">
+					      <select class="form-control component subject" data-name="subject">
+					      	{%for subject in all_sentences.subjects%}
+					      		<option value="{{subject}}">{{subject}}</option>        
+					      	{%endfor%}
+					      </select>
 
-				      <div class="space"></div>
+					      <div class="space"></div>
 
-				      <select class="form-control component sp" data-name="sp">
-				        {%for sp in all_sentences.verbs.sps%}
-				      		<option value="{{sp}}">{{sp}}</option>        
-				      	{%endfor%}
-				      </select>
+					      <select class="form-control component sp" data-name="sp">
+					        {%for sp in all_sentences.verbs.sps%}
+					      		<option value="{{sp}}">{{sp}}</option>        
+					      	{%endfor%}
+					      </select>
 
-				      <select class="form-control component tm" data-name="tm">
-				        {%for tm in all_sentences.verbs.tms%}
-				      		<option value="{{tm}}">{{tm}}</option>        
-				      	{%endfor%}
-				      </select>
+					      <select class="form-control component tm" data-name="tm">
+					        {%for tm in all_sentences.verbs.tms%}
+					      		<option value="{{tm}}">{{tm}}</option>        
+					      	{%endfor%}
+					      </select>
 
-				      <select class="form-control component vr" data-name="vr">
-				        {%for vr in all_sentences.verbs.vrs%}
-				      		<option value="{{vr}}">{{vr}}</option>        
-				      	{%endfor%}
-				      </select>
+					      <select class="form-control component vr" data-name="vr">
+					        {%for vr in all_sentences.verbs.vrs%}
+					      		<option value="{{vr}}">{{vr}}</option>        
+					      	{%endfor%}
+					      </select>
 
-				      <div class="space"></div>
+					      <div class="space"></div>
 
-				      <select class="form-control component obj" data-name="obj">    
-				      	{%for object in all_sentences.objs%}
-				      		<option value="{{object}}">{{object}}</option>        
-				      	{%endfor%}    
-				      </select>
-				    </div>
-				    <div class="col-md-1">
-				    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>
-				    </div>
-				    <div class="col-md-1">
-				    	<button type="button" class="btn btn-danger btn-block delete">Delete</button>
-				    </div>
-				</div>		
-		    </div> 
-		</div>
+					      <select class="form-control component obj" data-name="obj">    
+					      	{%for object in all_sentences.objs%}
+					      		<option value="{{object}}">{{object}}</option>        
+					      	{%endfor%}    
+					      </select>
+					    </div>
+					    <div class="col-md-1">
+					    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>
+					    </div>
+					    <div class="col-md-1">
+					    	<button type="button" class="btn btn-danger btn-block delete">Delete</button>
+					    </div>
+					</div>		
+			    </div> 
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-6">
+				<button type="button" class="btn btn-success btn-block" id="addNewSentence">Add New Sentence</button>
+				</div>
+				<div class="col-md-3">
+				</div>
+			</div>   
+		</div>	    
 	</div>
-    <div class="row">
-		<div class="col-md-3">
-		</div>
-		<div class="col-md-6">
-		<button type="button" class="btn btn-success btn-block" id="addNewSentence">Add New Sentence</button>
-		</div>
-		<div class="col-md-3">
-		</div>
-	</div>   
   </body>
 </html>
