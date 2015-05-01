@@ -13,3 +13,7 @@ body {
 	padding-right: 10px;
 }
 
+.btn {
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+}
