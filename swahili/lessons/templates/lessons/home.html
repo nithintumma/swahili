@@ -181,8 +181,14 @@
 
     			$(sentenceRow).find(".userCheck").val("");
 
-    			$("#sentences").append(sentenceRow);
+    			//sets the correct values for user validation
+    			var matchingOptions = $(".component");
+				for(var i=0, length=matchingOptions.length; i<length; i++) {					
+					var correctValue = $(matchingOptions[i]).val();					
+					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).data("correct", correctValue.toLowerCase());
+				}
 
+    			$("#sentences").append(sentenceRow);
 
     			getRandomSentence(sentenceRow);
     		})
