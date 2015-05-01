@@ -192,12 +192,14 @@
 
     			//starts by showing all components
     			//$(".component").css("visibility", "visible");
-    			$(".blankSpace").remove();
+    			//$(".blankSpace").remove();
+    			$(".componentHolder").css("border-bottom", "none");
 
     			if(exerciseOption != "none") {
     				var matchingOptions = $("."+exerciseOption);
     				for(var i=0, length=matchingOptions.length; i<length; i++) {
-    					$(matchingOptions[i]).closest(".componentHolder").append(blankSpace);
+    					//$(matchingOptions[i]).closest(".componentHolder").append(blankSpace);
+    					$(matchingOptions[i]).closest(".componentHolder").css("border-bottom", "solid 2px rgb(33,150,233)")
     				}
     			}
     		})
