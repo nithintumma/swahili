@@ -19,12 +19,49 @@
 
     <script>            
     	var sentence = {{sentence|safe}};
+    	var updateRequest;
+
+    	var sentencePartToDictionaryKeys = {
+    		"object": ["obj"],
+    		"subject": ["subject"],
+    		"verb-root": ["verb", "vr"],
+    		"tense": ["verb", "tm"],
+    		"sp": ["verb", "sp"],
+    	};    	
+
+    	//reverses the keys and values in the dictionary, assuming that values are unique
+    	function reverseDictionary(dictionary) {
+    		var reversed = {};
+    		for (var key in dictionary) {
+			  if (dictionary.hasOwnProperty(key)) {
+			    var value = String(dictionary[key]);
+			    reversed[value] = key;
+			  }
+			}
+
+			return reversed;
+    	}
+
+    	//assigns the value value to the dictionary path keyPath in obj
+    	function assign(obj, keyPath, value) {
+		   lastKeyIndex = keyPath.length-1;
+		   for (var i = 0; i < lastKeyIndex; ++ i) {
+		     key = keyPath[i];
+		     if (!(key in obj))
+		       obj[key] = {}
+		     obj = obj[key];
+		   }
+		   obj[keyPath[lastKeyIndex]] = value;
+		}
+
+    	var dictionaryKeysToSentencePart = reverseDictionary(sentencePartToDictionaryKeys);
 
     	//sentences are of the format
     	//{"verb":{"vr":"penda","tm":"na","op":"","sp":"m"},"obj":"gari","subject":"Ninyi"}
     	function getCurrentSentenceDictionary() {
     		var dictionary = {};
 
+    		/**
     		dictionary['obj'] = $("#object").val();
     		dictionary['subject'] = $("#subject").val();
 
@@ -32,9 +69,53 @@
     		dictionary['verb']['vr'] = $("#verb-root").val();
     		dictionary['verb']['tm'] = $("#tense").val();
     		dictionary['verb']['sp'] = $("#subject-prefix").val();
+    		*/
+
+    		for (var key in sentencePartToDictionaryKeys) {
+			  if (sentencePartToDictionaryKeys.hasOwnProperty(key)) {
+			    var dictionary_path = sentencePartToDictionaryKeys[key];
+
+			    var sentence_value = $("#" + key).val()
+				
+				assign(dictionary, dictionary_path, sentence_value)			   
+			  }
+			}
+
 
     		return dictionary;
     	}
+
+    	function setCurrentSentenceValues() {
+
+    	}
+
+    	$(document).ready(function() {
+    		$.ajaxSetup({
+				data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+			});
+
+    		//whenever we change a sentence component, 
+    		//we want to send the new sentence dictionary 
+    		//as well as the name of the recently changed component
+
+    		$(".component").on("change", function() {
+    			var recentlyChanged = $(this).attr("id");
+    			var currentSentence = getCurrentSentenceDictionary();
+
+    			var params = {};
+    			params['changed'] = recentlyChanged;
+    			params['sentence'] = currentSentence;
+
+    			$.ajax({
+					type: "POST",
+					url: "/lessonchange",
+					data: params,
+					complete: function( response ) {
+						console.log(response);						
+					}
+				});
+    		})
+    	})
     </script>
 
   </head>

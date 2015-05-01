@@ -126,6 +126,8 @@ def fix(sentence, changed_elt):
         # call get_object_verbs on new object, pass up list of new allowed verbs
         # fix object prefix
         return None
+    else:
+        return None
 
 def empty_sentence():
     return {"subject": None, "verb": None, "obj": None}
@@ -298,8 +300,8 @@ def lesson_change(request):
     changed_elt = json.loads(request.POST.get('changed'))
     sentence_dictionary = json.loads(request.POST.get('sentence'))
     sentence = dictionary_to_sentence(sentence_dictionary)
-
-    fixed_sentence = fix(sentence, changed_marker)
+   
+    fixed_sentence = fix(sentence, changed_elt)
 
     fixed_sentence_dictionary = sentence_to_dictionary(fixed_sentence)
 
