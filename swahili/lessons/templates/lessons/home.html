@@ -201,7 +201,7 @@
     				for(var i=0, length=matchingOptions.length; i<length; i++) {
     					//$(matchingOptions[i]).css("visibility", "hidden")
     					$(matchingOptions[i]).css("display", "none")
-    					$($(matchingOptions[i]).closest(".userCheck")).css("display", "inline")
+    					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).css("display", "inline")
     					//$(matchingOptions[i]).closest(".componentHolder").css("border-bottom", "solid 2px rgb(33,150,233)")
     					var correctValue = $(matchingOptions[i]).val();
     					$($(matchingOptions[i]).closest(".userCheck")).data("correct", correctValue);
