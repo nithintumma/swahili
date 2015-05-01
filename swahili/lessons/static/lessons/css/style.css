@@ -36,3 +36,7 @@ body {
 #addNewSentence {
 	margin-top: 20px;
 }
+
+.buttonColumn {
+	padding: 2px;
+}
