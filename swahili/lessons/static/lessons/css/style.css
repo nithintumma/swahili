@@ -13,6 +13,11 @@ body {
 	padding-right: 10px;
 }
 
+.space {	
+	display: inline-block;
+	width: 20px;
+}
+
 .btn {
 	padding-left: 6px !important;
 	padding-right: 6px !important;
