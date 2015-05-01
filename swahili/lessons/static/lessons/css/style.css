@@ -40,3 +40,7 @@ body {
 .buttonColumn {
 	padding: 2px;
 }
+
+.sentenceHolderRow {
+	width: 100%;
+}
