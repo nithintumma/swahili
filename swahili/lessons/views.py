@@ -312,6 +312,12 @@ def lesson_change(request):
     data = {'sentence': fixed_sentence_dictionary}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+def random_sentence(request):
+    rand_sentence = gen_random_sentence()
+    rand_sentence_dictionary = sentence_to_dictionary(rand_sentence)
+
+    data = {'sentence': rand_sentence_dictionary}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 #############################################################################################
 """

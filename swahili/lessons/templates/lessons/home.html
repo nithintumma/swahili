@@ -114,6 +114,21 @@
 			}
     	}
 
+    	function getRandomSentence(element) {
+    		$.ajax({
+				type: "POST",
+				url: "/randomsentence/",
+				data: params,
+				complete: function( response ) {
+					console.log(response);		
+
+					var updatedSentence = JSON.parse(response['responseText'])['sentence'];		
+
+					setCurrentSentenceValues(updatedSentence, element);
+				}
+			});
+    	}
+
     	$(document).ready(function() {
     		setCurrentSentenceValues(sentence, "#body-container");
 
@@ -125,7 +140,7 @@
     		//we want to send the new sentence dictionary 
     		//as well as the name of the recently changed component
 
-    		$(".component").on("change", function() {
+    		$("body").on("change", ".component", function() {
     			var recentlyChanged = $(this).data("name");
     			var currentSentenceHolder = $(this).closest(".sentenceHolder");
 
@@ -149,6 +164,16 @@
 						setCurrentSentenceValues(updatedSentence, currentSentenceHolder);				
 					}
 				});
+    		});
+
+    		$("body").on("click", ".delete", function() {
+    			if(confirm("Are you sure you want to delete this sentence?") {
+    				$(this).closest("sentenceHolder").remove();
+    			})
+    		})
+
+    		$("body").on("click", ".refresh", function() {
+    			getRandomSentence($(this).closest("sentenceHolder"));
     		})
     	})
     </script>
@@ -175,36 +200,46 @@
       </div>
     </div>
 
-    <div class="container sentenceHolder" id="body-container">
-      <select class="form-control component subject" data-name="subject">
-      	{%for subject in all_sentences.subjects%}
-      		<option value="{{subject}}">{{subject}}</option>        
-      	{%endfor%}
-      </select>
+	<div class="container sentenceHolder" id="body-container">
+		<div class="row">
+			<div class="col-md-10">
+		      <select class="form-control component subject" data-name="subject">
+		      	{%for subject in all_sentences.subjects%}
+		      		<option value="{{subject}}">{{subject}}</option>        
+		      	{%endfor%}
+		      </select>
 
-      <select class="form-control component sp" data-name="sp">
-        {%for sp in all_sentences.verbs.sps%}
-      		<option value="{{sp}}">{{sp}}</option>        
-      	{%endfor%}
-      </select>
+		      <select class="form-control component sp" data-name="sp">
+		        {%for sp in all_sentences.verbs.sps%}
+		      		<option value="{{sp}}">{{sp}}</option>        
+		      	{%endfor%}
+		      </select>
 
-      <select class="form-control component tm" data-name="tm">
-        {%for tm in all_sentences.verbs.tms%}
-      		<option value="{{tm}}">{{tm}}</option>        
-      	{%endfor%}
-      </select>
+		      <select class="form-control component tm" data-name="tm">
+		        {%for tm in all_sentences.verbs.tms%}
+		      		<option value="{{tm}}">{{tm}}</option>        
+		      	{%endfor%}
+		      </select>
 
-      <select class="form-control component vr" data-name="vr">
-        {%for vr in all_sentences.verbs.vrs%}
-      		<option value="{{vr}}">{{vr}}</option>        
-      	{%endfor%}
-      </select>
+		      <select class="form-control component vr" data-name="vr">
+		        {%for vr in all_sentences.verbs.vrs%}
+		      		<option value="{{vr}}">{{vr}}</option>        
+		      	{%endfor%}
+		      </select>
 
-      <select class="form-control component obj" data-name="obj">    
-      	{%for object in all_sentences.objs%}
-      		<option value="{{object}}">{{object}}</option>        
-      	{%endfor%}    
-      </select>
+		      <select class="form-control component obj" data-name="obj">    
+		      	{%for object in all_sentences.objs%}
+		      		<option value="{{object}}">{{object}}</option>        
+		      	{%endfor%}    
+		      </select>
+		    </div>
+		    <div class="col-md-1">
+		    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>
+		    </div>
+		    <div class="col-md-1">
+		    	<button type="button" class="btn btn-danger btn-block delete">Delete</button>
+		    </div>
+		</div>
     </div>    
   </body>
 </html>
