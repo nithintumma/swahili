@@ -179,7 +179,10 @@
     		$("#addNewSentence").on("click", function() {
     			var sentenceRow = $($(".sentenceHolder")[0]).clone();
 
+    			$(sentenceRow).find(".userCheck").val("");
+
     			$("#sentences").append(sentenceRow);
+
 
     			getRandomSentence(sentenceRow);
     		})
@@ -196,7 +199,7 @@
     			//$(".blankSpace").remove();
     			$(".componentHolder").css("border-bottom", "none");
     			$(".componentHolder").removeClass("has-success has-error");
-    			$(".userCheck").css("display", "none");
+    			$(".userCheck").css("display", "none");    			
 
     			if(exerciseOption != "none") {
     				var matchingOptions = $("."+exerciseOption);
