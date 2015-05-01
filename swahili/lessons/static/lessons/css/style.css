@@ -26,21 +26,3 @@ body {
 	padding-left: 6px !important;
 	padding-right: 6px !important;
 }
-
-#settings {
-	position: absolute;
-    top: 0px;
-    bottom: 0;
-    left: 0;
-    width: 20%;
-    overflow-y: scroll; 
-}
-
-#interactive {
-	position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    overflow-y: scroll;
-    width: 80%;
-}

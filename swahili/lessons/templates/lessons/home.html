@@ -183,6 +183,17 @@
 
     			getRandomSentence(sentenceRow);
     		})
+
+    		$("#exerciseOptions radio").on("click", function() {
+    			var exerciseOption = $("input[name=exerciseOptions]:checked").val();
+
+    			//starts by showing all components
+    			$(".component").css("visibility", "visible");
+
+    			if(exerciseOptions != "none") {
+    				$("."+exerciseOptions).css("visibility", "hidden");
+    			}
+    		})
     	})
     </script>
 
@@ -209,68 +220,111 @@
     </div>
 
     <div class="container-fluid" id="body-container">
-    	
-	    <div id="settings">
-	    	Settings
-	    </div>
-	    <div id="interactive">
-	    	<div id="sentences">
-				<div class="sentenceHolder" id="sentence1">
-					<div class="row">
-						<div class="col-md-10">
-					      <select class="form-control component subject" data-name="subject">
-					      	{%for subject in all_sentences.subjects%}
-					      		<option value="{{subject}}">{{subject}}</option>        
-					      	{%endfor%}
-					      </select>
+    	<div class="row">
+		    <div id="settings">
+		    	<h2>Settings</h2>
+		    	<hr>
 
-					      <div class="space"></div>
-
-					      <select class="form-control component sp" data-name="sp">
-					        {%for sp in all_sentences.verbs.sps%}
-					      		<option value="{{sp}}">{{sp}}</option>        
-					      	{%endfor%}
-					      </select>
-
-					      <select class="form-control component tm" data-name="tm">
-					        {%for tm in all_sentences.verbs.tms%}
-					      		<option value="{{tm}}">{{tm}}</option>        
-					      	{%endfor%}
-					      </select>
-
-					      <select class="form-control component vr" data-name="vr">
-					        {%for vr in all_sentences.verbs.vrs%}
-					      		<option value="{{vr}}">{{vr}}</option>        
-					      	{%endfor%}
-					      </select>
-
-					      <div class="space"></div>
-
-					      <select class="form-control component obj" data-name="obj">    
-					      	{%for object in all_sentences.objs%}
-					      		<option value="{{object}}">{{object}}</option>        
-					      	{%endfor%}    
-					      </select>
-					    </div>
-					    <div class="col-md-1">
-					    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>
-					    </div>
-					    <div class="col-md-1">
-					    	<button type="button" class="btn btn-danger btn-block delete">Delete</button>
-					    </div>
-					</div>		
-			    </div> 
-			</div>
-			<div class="row">
-				<div class="col-md-3">
+		    	<h4>Generate exercises for:</h4>
+		    	<div id="exerciseOptions">
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="exerciseRadios" id="exerciseNone" value="none">
+					    None
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="exerciseRadios" id="exerciseSubject" value="subject">
+					    Subject
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="exerciseRadios" id="exercisePrefix" value="sp">
+					    Subject prefix
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="exerciseRadios" id="exerciseTense" value="tm">
+					    Tense
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="exerciseRadios" id="exerciseRoot" value="vr">
+					    Verb root
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="exerciseRadios" id="exerciseObject" value="obj">
+					    Object
+					  </label>
+					</div>
 				</div>
-				<div class="col-md-6">
-				<button type="button" class="btn btn-success btn-block" id="addNewSentence">Add New Sentence</button>
+				
+		    </div>
+		    <div id="interactive">
+		    	<div id="sentences">
+					<div class="sentenceHolder" id="sentence1">
+						<div class="row">
+							<div class="col-md-10">
+						      <select class="form-control component subject" data-name="subject">
+						      	{%for subject in all_sentences.subjects%}
+						      		<option value="{{subject}}">{{subject}}</option>        
+						      	{%endfor%}
+						      </select>
+
+						      <div class="space"></div>
+
+						      <select class="form-control component sp" data-name="sp">
+						        {%for sp in all_sentences.verbs.sps%}
+						      		<option value="{{sp}}">{{sp}}</option>        
+						      	{%endfor%}
+						      </select>
+
+						      <select class="form-control component tm" data-name="tm">
+						        {%for tm in all_sentences.verbs.tms%}
+						      		<option value="{{tm}}">{{tm}}</option>        
+						      	{%endfor%}
+						      </select>
+
+						      <select class="form-control component vr" data-name="vr">
+						        {%for vr in all_sentences.verbs.vrs%}
+						      		<option value="{{vr}}">{{vr}}</option>        
+						      	{%endfor%}
+						      </select>
+
+						      <div class="space"></div>
+
+						      <select class="form-control component obj" data-name="obj">    
+						      	{%for object in all_sentences.objs%}
+						      		<option value="{{object}}">{{object}}</option>        
+						      	{%endfor%}    
+						      </select>
+						    </div>
+						    <div class="col-md-1">
+						    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>
+						    </div>
+						    <div class="col-md-1">
+						    	<button type="button" class="btn btn-danger btn-block delete">Delete</button>
+						    </div>
+						</div>		
+				    </div> 
 				</div>
-				<div class="col-md-3">
-				</div>
-			</div>   
-		</div>	 
+				<div class="row">
+					<div class="col-md-3">
+					</div>
+					<div class="col-md-6">
+					<button type="button" class="btn btn-success btn-block" id="addNewSentence">Add New Sentence</button>
+					</div>
+					<div class="col-md-3">
+					</div>
+				</div>   
+			</div>	 
+		</div>   
 	</div>
   </body>
 </html>
