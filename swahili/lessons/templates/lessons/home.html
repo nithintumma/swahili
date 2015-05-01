@@ -210,15 +210,26 @@
     			}
     		})
 
+			//checks if the user input value is correct
 			$("body").on("keyup", ".userCheck", function() {
-				//checks if the value is correct
-				console.log($(this).val());
+				var currentValue = $(this).val();
+				var correctValue = $(this).data("correct");
+
+				var componentHolder = $(this).closest(".componentHolder");
 
 				//if the value is blank, remove the state
+				if(currentValue=="") {
+					componentHolder.removeClass("has-success has-error");
+				}
 
 				//if the value is correct, add the success state
-
+				else if(currentValue==correctValue) {
+					componentHolder.addClass("has-success");
+				}
 				//if the value is not correct, add the error state
+				else {
+					componentHolder.addClass("has-error");
+				}
 			})
     	})
     </script>
