@@ -103,8 +103,8 @@
     			var currentSentence = getCurrentSentenceDictionary();
 
     			var params = {};
-    			params['changed'] = recentlyChanged;
-    			params['sentence'] = currentSentence;
+    			params['changed'] = JSON.stringify(recentlyChanged);
+    			params['sentence'] = JSON.stringify(currentSentence);
 
     			$.ajax({
 					type: "POST",
