@@ -205,7 +205,7 @@
     					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).css("display", "inline")
     					//$(matchingOptions[i]).closest(".componentHolder").css("border-bottom", "solid 2px rgb(33,150,233)")
     					var correctValue = $(matchingOptions[i]).val();
-    					$($(matchingOptions[i]).closest(".userCheck")).data("correct", correctValue.toLowerCase());
+    					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).data("correct", correctValue.toLowerCase());
     				}
     			}
     		})
