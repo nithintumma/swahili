@@ -22,10 +22,10 @@
     	var updateRequest;
 
     	var sentencePartToDictionaryKeys = {
-    		"object": ["obj"],
+    		"obj": ["obj"],
     		"subject": ["subject"],
-    		"verb-root": ["verb", "vr"],
-    		"tense": ["verb", "tm"],
+    		"vr": ["verb", "vr"],
+    		"tm": ["verb", "tm"],
     		"sp": ["verb", "sp"],
     	};    	
 
@@ -147,25 +147,25 @@
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="subject-prefix" >
+      <select class="form-control component" id="sp" >
         {%for sp in all_sentences.verbs.sps%}
       		<option value="{{sp}}">{{sp}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="tense">
+      <select class="form-control component" id="tm">
         {%for tm in all_sentences.verbs.tms%}
       		<option value="{{tm}}">{{tm}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="verb-root" >
+      <select class="form-control component" id="vr" >
         {%for vr in all_sentences.verbs.vrs%}
       		<option value="{{vr}}">{{vr}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="object" >    
+      <select class="form-control component" id="obj" >    
       	{%for object in all_sentences.objs%}
       		<option value="{{object}}">{{object}}</option>        
       	{%endfor%}    
