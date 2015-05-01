@@ -219,8 +219,8 @@
 				var currentValue = $(this).val().toLowerCase();
 				var correctValue = $(this).data("correct");
 
-				console.log("currentValue: '" + currentValue + "'");
-				console.log("correctValue: '" + correctValue + "'");
+				//console.log("currentValue: '" + currentValue + "'");
+				//console.log("correctValue: '" + correctValue + "'");
 
 				var componentHolder = $(this).closest(".componentHolder");
 
@@ -228,13 +228,14 @@
 				if(currentValue=="") {
 					componentHolder.removeClass("has-success has-error");
 				}
-
 				//if the value is correct, add the success state
 				else if(currentValue==correctValue) {
+					componentHolder.removeClass("has-error");
 					componentHolder.addClass("has-success");
 				}
 				//if the value is not correct, add the error state
 				else {
+					componentHolder.removeClass("has-success");
 					componentHolder.addClass("has-error");
 				}
 			})
