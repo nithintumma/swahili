@@ -54,6 +54,18 @@
 		   obj[keyPath[lastKeyIndex]] = value;
 		}
 
+		//gets the value from the dictionary path keyPath in obj
+		function getValue(obj, keyPath) {
+		   lastKeyIndex = keyPath.length-1;
+		   for (var i = 0; i < lastKeyIndex; ++ i) {
+		     key = keyPath[i];
+		     if (!(key in obj))
+		       obj[key] = {}
+		     obj = obj[key];
+		   }
+		   return obj[keyPath[lastKeyIndex]];
+		}
+
     	var dictionaryKeysToSentencePart = reverseDictionary(sentencePartToDictionaryKeys);
 
     	//sentences are of the format
@@ -85,8 +97,21 @@
     		return dictionary;
     	}
 
-    	function setCurrentSentenceValues() {
+    	function setCurrentSentenceValues(dictionary) {
+    		for (var key in dictionaryKeysToSentencePart) {
+			  if (dictionaryKeysToSentencePart.hasOwnProperty(key)) {
 
+			  	//the key is a path within the dictionary
+			    var dictionary_path = key.split(",");
+
+			    //the value is the name of an HTML object
+			    var sentence_id = dictionaryKeysToSentencePart[key];
+				
+				var sentence_value = getValue(dictionary, dictionary_path);
+
+				$("#" + sentence_id).val(sentence_value);
+			  }
+			}
     	}
 
     	$(document).ready(function() {
