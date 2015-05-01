@@ -126,7 +126,7 @@
     		//as well as the name of the recently changed component
 
     		$(".component").on("change", function() {
-    			var recentlyChanged = $(this).attr("id");
+    			var recentlyChanged = $(this).data("name");
     			var currentSentenceHolder = $(this).closest(".sentenceHolder");
 
     			var currentSentence = getCurrentSentenceDictionary(currentSentenceHolder);
@@ -176,31 +176,31 @@
     </div>
 
     <div class="container sentenceHolder" id="body-container">
-      <select class="form-control component subject">
+      <select class="form-control component subject" data-name="subject">
       	{%for subject in all_sentences.subjects%}
       		<option value="{{subject}}">{{subject}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component sp" >
+      <select class="form-control component sp" data-name="sp">
         {%for sp in all_sentences.verbs.sps%}
       		<option value="{{sp}}">{{sp}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component tm">
+      <select class="form-control component tm" data-name="tm">
         {%for tm in all_sentences.verbs.tms%}
       		<option value="{{tm}}">{{tm}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component vr" >
+      <select class="form-control component vr" data-name="vr">
         {%for vr in all_sentences.verbs.vrs%}
       		<option value="{{vr}}">{{vr}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component obj" >    
+      <select class="form-control component obj" data-name="obj">    
       	{%for object in all_sentences.objs%}
       		<option value="{{object}}">{{object}}</option>        
       	{%endfor%}    
