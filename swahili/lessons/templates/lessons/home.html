@@ -118,7 +118,7 @@
     		$.ajax({
 				type: "POST",
 				url: "/randomsentence/",
-				data: params,
+				data: {},
 				complete: function( response ) {
 					console.log(response);		
 
@@ -173,7 +173,7 @@
     		})
 
     		$("body").on("click", ".refresh", function() {
-    			getRandomSentence($(this).closest("sentenceHolder"));
+    			getRandomSentence($(this).closest(".sentenceHolder"));
     		})
     	})
     </script>
