@@ -167,9 +167,9 @@
     		});
 
     		$("body").on("click", ".delete", function() {
-    			if(confirm("Are you sure you want to delete this sentence?") {
+    			if(confirm("Are you sure you want to delete this sentence?")) {
     				$(this).closest("sentenceHolder").remove();
-    			})
+    			};
     		})
 
     		$("body").on("click", ".refresh", function() {
