@@ -191,18 +191,34 @@
     			console.log(exerciseOption);
 
     			//starts by showing all components
-    			$(".component").css("visibility", "visible");
+    			//$(".component").css("visibility", "visible");
+    			$(".component").css("display", "inline");
     			//$(".blankSpace").remove();
     			$(".componentHolder").css("border-bottom", "none");
 
     			if(exerciseOption != "none") {
     				var matchingOptions = $("."+exerciseOption);
     				for(var i=0, length=matchingOptions.length; i<length; i++) {
-    					$(matchingOptions[i]).css("visibility", "hidden")
-    					$(matchingOptions[i]).closest(".componentHolder").css("border-bottom", "solid 2px rgb(33,150,233)")
+    					//$(matchingOptions[i]).css("visibility", "hidden")
+    					$(matchingOptions[i]).css("display", "none")
+    					$($(matchingOptions[i]).closest(".userCheck")).css("display", "inline")
+    					//$(matchingOptions[i]).closest(".componentHolder").css("border-bottom", "solid 2px rgb(33,150,233)")
+    					var correctValue = $(matchingOptions[i]).val();
+    					$($(matchingOptions[i]).closest(".userCheck")).data("correct", correctValue);
     				}
     			}
     		})
+
+			$("#userCheck").on("keyup", function() {
+				//checks if the value is correct
+				console.log(this).val();
+
+				//if the value is blank, remove the state
+
+				//if the value is correct, add the success state
+
+				//if the value is not correct, add the error state
+			})
     	})
     </script>
 
