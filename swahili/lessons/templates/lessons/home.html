@@ -204,6 +204,7 @@
     					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).css("display", "inline")
 
     					var correctValue = $(matchingOptions[i]).val();
+    					console.log("Setting to " + correctValue);
     					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).data("correct", correctValue.toLowerCase());
     				}
 
