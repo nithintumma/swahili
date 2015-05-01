@@ -299,6 +299,10 @@ def lesson_change(request):
     """
     changed_elt = json.loads(request.POST.get('changed'))
     sentence_dictionary = json.loads(request.POST.get('sentence'))
+
+    #fills in the op, as it is currently blank
+    sentence_dictionary['verb']['op'] = ''
+
     sentence = dictionary_to_sentence(sentence_dictionary)
    
     fixed_sentence = fix(sentence, changed_elt)
