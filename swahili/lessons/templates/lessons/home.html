@@ -115,6 +115,8 @@
     	}
 
     	$(document).ready(function() {
+    		setCurrentSentenceValues(sentence);
+
     		$.ajaxSetup({
 				data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 			});
@@ -136,7 +138,11 @@
 					url: "/lessonchange/",
 					data: params,
 					complete: function( response ) {
-						console.log(response);						
+						console.log(response);		
+
+						var updatedSentence = JSON.parse(response['responseText']);
+
+						setCurrentSentenceValues(sentence);				
 					}
 				});
     		})
