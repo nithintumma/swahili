@@ -218,7 +218,7 @@
     		})
 
 			//checks if the user input value is correct
-			$("body").on("change", ".userCheck", function() {
+			$("body").on("change keyup", ".userCheck", function() {
 				var currentValue = $(this).val().toLowerCase();
 				var correctValue = $(this).data("correct");
 
