@@ -70,7 +70,7 @@
 
     	//sentences are of the format
     	//{"verb":{"vr":"penda","tm":"na","op":"","sp":"m"},"obj":"gari","subject":"Ninyi"}
-    	function getCurrentSentenceDictionary() {
+    	function getCurrentSentenceDictionary(element) {
     		var dictionary = {};
 
     		/**
@@ -87,7 +87,7 @@
 			  if (sentencePartToDictionaryKeys.hasOwnProperty(key)) {
 			    var dictionary_path = sentencePartToDictionaryKeys[key];
 
-			    var sentence_value = $("#" + key).val()
+			    var sentence_value = $(element).find("." + key).val()
 				
 				assign(dictionary, dictionary_path, sentence_value)			   
 			  }
@@ -97,7 +97,7 @@
     		return dictionary;
     	}
 
-    	function setCurrentSentenceValues(dictionary) {
+    	function setCurrentSentenceValues(dictionary, element) {
     		for (var key in dictionaryKeysToSentencePart) {
 			  if (dictionaryKeysToSentencePart.hasOwnProperty(key)) {
 
@@ -109,13 +109,13 @@
 				
 				var sentence_value = getValue(dictionary, dictionary_path);
 
-				$("#" + sentence_id).val(sentence_value);
+				$(element).find("." + sentence_id).val(sentence_value);
 			  }
 			}
     	}
 
     	$(document).ready(function() {
-    		setCurrentSentenceValues(sentence);
+    		setCurrentSentenceValues(sentence, "#body-container");
 
     		$.ajaxSetup({
 				data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
@@ -127,7 +127,9 @@
 
     		$(".component").on("change", function() {
     			var recentlyChanged = $(this).attr("id");
-    			var currentSentence = getCurrentSentenceDictionary();
+    			var currentSentenceHolder = $(this).closest(".sentenceHolder");
+
+    			var currentSentence = getCurrentSentenceDictionary(currentSentenceHolder);
 
     			var params = {};
     			params['changed'] = JSON.stringify(recentlyChanged);
@@ -144,7 +146,7 @@
 
 						console.log(updatedSentence);
 
-						setCurrentSentenceValues(updatedSentence);				
+						setCurrentSentenceValues(updatedSentence, currentSentenceHolder);				
 					}
 				});
     		})
@@ -173,32 +175,32 @@
       </div>
     </div>
 
-    <div class="container" id="body-container">
-      <select class="form-control component" id="subject">
+    <div class="container sentenceHolder" id="body-container">
+      <select class="form-control component subject">
       	{%for subject in all_sentences.subjects%}
       		<option value="{{subject}}">{{subject}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="sp" >
+      <select class="form-control component sp" >
         {%for sp in all_sentences.verbs.sps%}
       		<option value="{{sp}}">{{sp}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="tm">
+      <select class="form-control component tm">
         {%for tm in all_sentences.verbs.tms%}
       		<option value="{{tm}}">{{tm}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="vr" >
+      <select class="form-control component vr" >
         {%for vr in all_sentences.verbs.vrs%}
       		<option value="{{vr}}">{{vr}}</option>        
       	{%endfor%}
       </select>
 
-      <select class="form-control component" id="obj" >    
+      <select class="form-control component obj" >    
       	{%for object in all_sentences.objs%}
       		<option value="{{object}}">{{object}}</option>        
       	{%endfor%}    
