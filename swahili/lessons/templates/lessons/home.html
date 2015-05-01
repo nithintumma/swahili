@@ -211,10 +211,12 @@
     					var correctValue = $(matchingOptions[i]).val();
     					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).data("correct", correctValue.toLowerCase());
     				}
+
+    				//triggers the change event on each userCheck
+    				$(".userCheck").trigger("change");
     			}
 
-    			//triggers the change event on each userCheck
-    			$(".userCheck").trigger("change");
+    			
     		})
 
 			//checks if the user input value is correct
