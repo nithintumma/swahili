@@ -269,6 +269,8 @@ def sentence_to_dictionary(sentence):
 
     dictionary["subject"] = sentence["subject"].pronoun
 
+    dictionary["negation"] = sentence["negation"]
+
     return dictionary
 
 def dictionary_to_sentence(dictionary):

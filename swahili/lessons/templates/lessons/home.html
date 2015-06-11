@@ -118,6 +118,8 @@
 				$(element).find("." + sentence_id).val(sentence_value);
 			  }
 			}
+
+			$(element).find(".negation").prop("checked", dictionary["negation"])
     	}
 
     	function getRandomSentence(element) {
