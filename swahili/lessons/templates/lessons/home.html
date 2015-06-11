@@ -13,8 +13,11 @@
     <link rel="stylesheet" href="{% static 'lessons/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'lessons/css/bootswatch.css' %}">
     <link rel="stylesheet" href="{% static 'lessons/css/style.css' %}">   
+    <link rel="stylesheet" href="{% static 'lessons/css/bootstrap-switch.min.css' %}">   
+
 
     <script src="{% static 'lessons/js/jquery.js' %}" charset="utf-8"></script>
+    <script src="{% static 'lessons/js/bootstrap-switch.min.js' %}" charset="utf-8"></script>
        
 
     <script>            
@@ -27,6 +30,7 @@
     		"vr": ["verb", "vr"],
     		"tm": ["verb", "tm"],
     		"sp": ["verb", "sp"],
+    		"negation": ["negation"],
     	};    	
 
     	//reverses the keys and values in the dictionary, assuming that values are unique
@@ -313,6 +317,8 @@
 					    Object
 					  </label>
 					</div>
+					<div>
+					</div>
 				</div>
 				
 		    </div>
@@ -369,6 +375,15 @@
 							      </select>
 							      <input class="form-control userCheck" type="text">
 							    </div>
+
+							    <div class="space"></div>
+
+						      	<div class="componentHolder">
+							      <input type="checkbox" class="form-control component negation" name="negation" data-on-text="positive" data-off-text="negative" data-on-color="success" data-off-color="danger" checked>
+							    </div>
+
+
+							    <input type="checkbox" name="my-checkbox" checked>
 						    </div>
 						    <div class="col-md-1 buttonColumn">
 						    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>

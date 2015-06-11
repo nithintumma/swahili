@@ -166,6 +166,8 @@ def gen_random_sentence():
     # make resulting sentence grammatical
     sentence = fix(sentence, 'subject')
 
+    is_random = random.randint(0,1)
+
     #TODO: add logic to deal with noun/verb tags
     # 1. get all objects that are allowable for this verb
     # objects = Noun.objects.filter(tags_in=verb.tags).distinct()
