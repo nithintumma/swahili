@@ -219,7 +219,7 @@ def un_negate_sentence(sentence):
         pos_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'a'
 
     # set the right tense marker
-    pos_sentence['verb']['tm'] = NEG_TENSE_MARKER[verb_dict['tm']]
+    pos_sentence['verb']['tm'] = REV_NEG_TENSE_MARKER[verb_dict['tm']]
     # set the right subject prefix given the subject
     pos_sentence = fix(pos_sentence, 'subject')
     return pos_sentence
