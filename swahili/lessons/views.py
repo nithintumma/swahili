@@ -185,7 +185,7 @@ def gen_all_sentences():
     want to return to the frontend a list of all of the choices
     """
     all_subjects = list(SubjectPronoun.objects.all())
-    sps = [sb.subject_prefix for sb in all_subjects]
+    sps = [sb.subject_prefix for sb in all_subjects] + [sb.neg_prefix for sb in all_subjects]
     subjects = [sb.pronoun for sb in all_subjects]
     verbs = [verb.infinitive for verb in Verb.objects.all()]
     nouns = [n.noun for n in list(Noun.objects.all())]
