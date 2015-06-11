@@ -130,9 +130,9 @@ def fix(sentence, changed_elt):
         fixed = sentence
     
     if sentence['negation']==True:
-        return negate_sentence(fixed)
-    else:
         return un_negate_sentence(fixed)
+    else:
+        return negate_sentence(fixed)
    
 
 def empty_sentence():
