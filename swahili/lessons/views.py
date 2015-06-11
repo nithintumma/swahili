@@ -243,8 +243,8 @@ def negate_sentence(sentence):
     # present tense modify verb root
     if verb_dict['tm'] == 'na':
         neg_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'i'
-
-    neg_sentence['verb']['tm'] = REV_NEG_TENSE_MARKER[verb_dict['tm']]
+    else:
+        neg_sentence['verb']['tm'] = REV_NEG_TENSE_MARKER[verb_dict['tm']]
     neg_sentence['negation'] = True
     return neg_sentence
 
