@@ -145,7 +145,7 @@
     		//we want to send the new sentence dictionary 
     		//as well as the name of the recently changed component
 
-    		$("body").on("change", ".component", function() {
+    		$("body").on("change switchChange.bootstrapSwitch", ".component", function() {
     			var recentlyChanged = $(this).data("name");
     			var currentSentenceHolder = $(this).closest(".sentenceHolder");
 
