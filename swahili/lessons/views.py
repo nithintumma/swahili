@@ -135,7 +135,7 @@ def fix(sentence, changed_elt):
         return sentence
 
 def empty_sentence():
-    return {"subject": None, "verb": None, "obj": None}
+    return {"subject": None, "verb": None, "obj": None, "negation": "false"}
 
 def empty_verb():
     return {'sp': '', 'tm': '', 'op': '', 'vr': None }
@@ -284,6 +284,8 @@ def dictionary_to_sentence(dictionary):
 
     sentence["subject"] = SubjectPronoun.objects.get(pronoun=dictionary["subject"])
     
+    sentence["negation"] = dictionary["negation"]
+
     return sentence
 
 #
