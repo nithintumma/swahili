@@ -127,7 +127,7 @@ def fix(sentence, changed_elt):
         # fix object prefix
         return sentence
     elif changed_elt == 'negation':
-        if sentence['negation']=='true':
+        if sentence['negation']==True:
             return negate_sentence(sentence)
         else:
             return un_negate_sentence(sentence)
