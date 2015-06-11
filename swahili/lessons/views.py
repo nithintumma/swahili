@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import Q
 
 from models import Verb, ChartWord, Tags, Adjective, SubjectPronoun, Noun, Possessive
 from models import QuestionWord
@@ -73,7 +74,7 @@ def set_subject_pronoun_from_prefix(sentence):
     """
     #TODO: allow arbitrary subject prefix, populate with a random noun from that class
     sp = sentence['verb']['sp']
-    subject = SubjectPronoun.objects.filter(subject_prefix=sp)[0]
+    subject = SubjectPronoun.objects.filter(Q(subject_prefix=sp) | Q(neg_prefix=sp))[0]
     sentence['subject'] = subject
     return sentence
 
