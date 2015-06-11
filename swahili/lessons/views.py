@@ -121,13 +121,18 @@ def fix(sentence, changed_elt):
     #TODO: below cases
     elif changed_elt == 'verb':
         # call get_verb_objects on new verb, pass up list of new allowed objects
-        return None
+        return sentence
     elif changed_elt == 'obj':
         # call get_object_verbs on new object, pass up list of new allowed verbs
         # fix object prefix
-        return None
+        return sentence
+    elif changed_elt == 'negation':
+        if sentence['negation']=='true':
+            return negate_sentence(sentence)
+        else:
+            return un_negate_sentence(sentence)
     else:
-        return None
+        return sentence
 
 def empty_sentence():
     return {"subject": None, "verb": None, "obj": None}
