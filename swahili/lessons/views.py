@@ -135,7 +135,7 @@ def fix(sentence, changed_elt):
         return sentence
 
 def empty_sentence():
-    return {"subject": None, "verb": None, "obj": None, "negation": "false"}
+    return {"subject": None, "verb": None, "obj": None, "negation": False}
 
 def empty_verb():
     return {'sp': '', 'tm': '', 'op': '', 'vr': None }
@@ -144,7 +144,7 @@ TENSES = ['present',
           'past',
           'past_perfect',
           'future']
-TENSE_MARKERS = ['na', 'ta', 'li', 'me']
+TENSE_MARKERS = ['na', 'ta', 'li', 'me', 'ku', 'ja', 'ta']
 
 def random_tense():
     return random.choice(TENSES)
@@ -171,7 +171,10 @@ def gen_random_sentence():
     # make resulting sentence grammatical
     sentence = fix(sentence, 'subject')
 
-    is_random = random.randint(0,1)
+    is_negative = random.randint(0,1)
+
+    if is_negative:
+        sentence["negative"] = True
 
     #TODO: add logic to deal with noun/verb tags
     # 1. get all objects that are allowable for this verb
