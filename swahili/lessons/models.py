@@ -71,8 +71,8 @@ class Noun(models.Model):
     noun = models.CharField(max_length=200)
     english_translation = models.CharField(max_length=200)
     noun_class = models.IntegerField()
-    sibling = models.OneToOneField(Noun)
     tags = models.ManyToManyField(Tags, blank=True)
+    sibling = models.OneToOneField('self')
     def __unicode__(self):
         return str(self.noun_class) + ": " + self.noun
 
