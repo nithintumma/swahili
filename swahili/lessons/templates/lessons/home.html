@@ -140,6 +140,8 @@
 				data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 			});
 
+			$("#negation").bootstrapSwitch();
+
     		//whenever we change a sentence component, 
     		//we want to send the new sentence dictionary 
     		//as well as the name of the recently changed component
@@ -381,9 +383,6 @@
 						      	<div class="componentHolder">
 							      <input type="checkbox" class="form-control component negation" name="negation" data-on-text="positive" data-off-text="negative" data-on-color="success" data-off-color="danger" checked>
 							    </div>
-
-
-							    <input type="checkbox" name="my-checkbox" checked>
 						    </div>
 						    <div class="col-md-1 buttonColumn">
 						    	<button type="button" class="btn btn-primary btn-block refresh">Refresh</button>
