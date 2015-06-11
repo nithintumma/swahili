@@ -114,7 +114,7 @@ def set_object_prefix(sentence):
 # if you change subject, we need to change the subject prefix accordingly
 # {'subject_pronoun': {}}
 # fix that cases on what was changed, and calls the right function to fix it
-def fix(sentence, changed_elt):
+def fix(sentence, changed_elt, negating=False):
     fixed = sentence
     if changed_elt == 'subject':
         fixed = set_subject_prefix(sentence)
@@ -129,10 +129,13 @@ def fix(sentence, changed_elt):
         # fix object prefix
         fixed = sentence
     
-    if sentence['negation']==True:
-        return un_negate_sentence(fixed)
+    if not negating:
+        if sentence['negation']==True:
+            return un_negate_sentence(fixed)
+        else:
+            return negate_sentence(fixed)
     else:
-        return negate_sentence(fixed)
+        return fixed
    
 
 def empty_sentence():
@@ -221,7 +224,7 @@ def un_negate_sentence(sentence):
     # set the right tense marker
     pos_sentence['verb']['tm'] = REV_NEG_TENSE_MARKER[verb_dict['tm']]
     # set the right subject prefix given the subject
-    pos_sentence = fix(pos_sentence, 'subject')
+    pos_sentence = fix(pos_sentence, 'subject', negating=True)
     return pos_sentence
 
 def negate_sentence(sentence):
