@@ -241,8 +241,8 @@ def negate_sentence(sentence):
     if verb_dict['tm'] == 'na':
         neg_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'i'
 
-    neg_sentence['verb']['tm'] = REV_NEG_TENSE_MARKER[verb_dict['tm']]
-    neg_sentence['neg'] = True
+    neg_sentence['verb']['tm'] = NEG_TENSE_MARKER[verb_dict['tm']]
+    neg_sentence['negation'] = True
     return neg_sentence
 
 def sentence_to_text(sentence):
