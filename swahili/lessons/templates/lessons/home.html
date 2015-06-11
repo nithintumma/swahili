@@ -97,7 +97,7 @@
 			  }
 			}
 
-			dictionary['negation'] = $(element).find(".negation").prop('checked');
+			dictionary['negation'] = $(element).find(".negation").bootstrapSwitch('state')
 
 
     		return dictionary;
@@ -120,7 +120,7 @@
 			}
 
 			//if negation is true, we will leave the negation check
-			$(element).find(".negation").prop("checked", dictionary["negation"])
+			$(element).find(".negation").bootstrapSwitch('state', dictionary["negation"]);
     	}
 
     	function getRandomSentence(element) {
