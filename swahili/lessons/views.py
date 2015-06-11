@@ -115,25 +115,25 @@ def set_object_prefix(sentence):
 # {'subject_pronoun': {}}
 # fix that cases on what was changed, and calls the right function to fix it
 def fix(sentence, changed_elt):
+    fixed = sentence
     if changed_elt == 'subject':
-        return set_subject_prefix(sentence)
+        fixed = set_subject_prefix(sentence)
     elif changed_elt == 'sp':
-        return set_subject_pronoun_from_prefix(sentence)
+        fixed = set_subject_pronoun_from_prefix(sentence)
     #TODO: below cases
     elif changed_elt == 'verb':
         # call get_verb_objects on new verb, pass up list of new allowed objects
-        return sentence
+        fixed = sentence
     elif changed_elt == 'obj':
         # call get_object_verbs on new object, pass up list of new allowed verbs
         # fix object prefix
-        return sentence
-    elif changed_elt == 'negation':
-        if sentence['negation']==True:
-            return negate_sentence(sentence)
-        else:
-            return un_negate_sentence(sentence)
+        fixed = sentence
+    
+    if sentence['negation']==True:
+        return negate_sentence(fixed)
     else:
-        return sentence
+        return un_negate_sentence(fixed)
+   
 
 def empty_sentence():
     return {"subject": None, "verb": None, "obj": None, "negation": False}
