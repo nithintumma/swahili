@@ -130,7 +130,7 @@ def fix(sentence, changed_elt, negating=False):
         fixed = sentence
     
     if not negating:
-        if sentence['negation']==True:
+        if sentence['is_negative']==True:
             return un_negate_sentence(fixed)
         else:
             return negate_sentence(fixed)
@@ -139,7 +139,7 @@ def fix(sentence, changed_elt, negating=False):
    
 
 def empty_sentence():
-    return {"subject": None, "verb": None, "obj": None, "negation": False}
+    return {"subject": None, "verb": None, "obj": None, "is_negative": False}
 
 def empty_verb():
     return {'sp': '', 'tm': '', 'op': '', 'vr': None }
@@ -214,7 +214,7 @@ def un_negate_sentence(sentence):
     output: positive version of sentence
     """
     pos_sentence = copy.copy(sentence)
-    pos_sentence['neg'] = False
+    pos_sentence['is_negative'] = False
     subject = sentence['subject']
     verb_dict = sentence['verb']
     # present tense, revert to standard verb root
@@ -231,7 +231,7 @@ def negate_sentence(sentence):
     """
     negation rules
     """
-    if sentence.get('neg'):
+    if sentence.get('is_negative'):
         return un_negate_sentence(sentence)
 
     neg_sentence = copy.copy(sentence)
@@ -245,7 +245,7 @@ def negate_sentence(sentence):
         neg_sentence['verb']['vr'].infinitive = verb_dict['vr'].infinitive[:-1] + 'i'
     else:
         neg_sentence['verb']['tm'] = NEG_TENSE_MARKER[verb_dict['tm']]
-    neg_sentence['negation'] = True
+    neg_sentence['is_negative'] = True
     return neg_sentence
 
 def sentence_to_text(sentence):
@@ -257,10 +257,10 @@ def sentence_to_text(sentence):
     text['verb'] = sentence['verb']
     text['verb']['vr'] = text['verb']['vr'].infinitive
     text['obj'] = sentence['obj'].noun
-    if sentence.get('neg'):
-        text['neg'] = True
+    if sentence.get('is_negative'):
+        text['is_negative'] = True
     else:
-        text['neg'] = False
+        text['is_negative'] = False
     return text
 
 def sentence_to_dictionary(sentence):
@@ -276,7 +276,7 @@ def sentence_to_dictionary(sentence):
 
     dictionary["subject"] = sentence["subject"].pronoun
 
-    dictionary["negation"] = sentence["negation"]
+    dictionary["is_negative"] = sentence["is_negative"]
 
     return dictionary
 
@@ -293,7 +293,7 @@ def dictionary_to_sentence(dictionary):
 
     sentence["subject"] = SubjectPronoun.objects.get(pronoun=dictionary["subject"])
     
-    sentence["negation"] = dictionary["negation"]
+    sentence["is_negative"] = dictionary["is_negative"]
 
     return sentence
 

@@ -30,7 +30,7 @@
     		"vr": ["verb", "vr"],
     		"tm": ["verb", "tm"],
     		"sp": ["verb", "sp"],
-    		"negation": ["negation"],
+    		"is_negative": ["is_negative"],
     	};    	
 
     	//reverses the keys and values in the dictionary, assuming that values are unique
@@ -97,7 +97,7 @@
 			  }
 			}
 
-			dictionary['negation'] = $(element).find(".negation").bootstrapSwitch("state");
+			dictionary['is_negative'] = $(element).find(".is_negative").bootstrapSwitch("state");
 
 
     		return dictionary;
@@ -122,7 +122,7 @@
 			//if negation is true, we will leave the negation check
 			//$(element).find(".negation").bootstrapSwitch('state', dictionary["negation"]);
 			//the true parameter indicates thta we want to skip the change event
-			$(element).find(".negation").bootstrapSwitch("state", dictionary["negation"], true);
+			$(element).find(".is_negative").bootstrapSwitch("state", dictionary["is_negative"], true);
     	}
 
     	function getRandomSentence(element) {
@@ -147,7 +147,7 @@
 				data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
 			});
 
-			$("[name='negation']").bootstrapSwitch();
+			$("[name='is_negative']").bootstrapSwitch();
     		//whenever we change a sentence component, 
     		//we want to send the new sentence dictionary 
     		//as well as the name of the recently changed component
@@ -156,7 +156,7 @@
     			var recentlyChanged = $(this).data("name");
     			var currentSentenceHolder = $(this).closest(".sentenceHolder");
 
-    			console.log($(".negation").prop('checked'));
+    			console.log($(".is_negative").prop('checked'));
 
     			var currentSentence = getCurrentSentenceDictionary(currentSentenceHolder);
 
@@ -389,7 +389,7 @@
 							    <div class="space"></div>
 
 						      	<div class="componentHolder">
-							      <input type="checkbox" class="form-control component negation" name="negation" data-on-text="negative" data-off-text="positive" data-on-color="danger" data-off-color="success" data-name="negation">
+							      <input type="checkbox" class="form-control component is_negative" name="is_negative" data-on-text="negative" data-off-text="positive" data-on-color="danger" data-off-color="success" data-name="is_negative">
 							    </div>
 						    </div>
 						    <div class="col-md-1 buttonColumn">
