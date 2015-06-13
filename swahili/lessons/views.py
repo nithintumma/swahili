@@ -230,9 +230,7 @@ def negate_sentence(sentence):
     """
     negation rules
     """
-    if sentence.get('is_negative'):
-        return un_negate_sentence(sentence)
-
+   
     neg_sentence = copy.copy(sentence)
     subject = sentence['subject']
     verb_dict = sentence['verb']
