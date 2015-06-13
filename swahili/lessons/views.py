@@ -128,14 +128,13 @@ def fix(sentence, changed_elt, negating=False):
         # call get_object_verbs on new object, pass up list of new allowed verbs
         # fix object prefix
         fixed = sentence
-    
-    if not negating:
+    elif changed_elt='is_negative':
         if sentence['is_negative']==True:
-            return negate_sentence(fixed)
+            fixed = negate_sentence(fixed)
         else:
-            return un_negate_sentence(fixed)
-    else:
-        return fixed
+            fixed = un_negate_sentence(fixed)
+    
+    return fixed
    
 
 def empty_sentence():
