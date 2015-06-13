@@ -184,13 +184,15 @@ def gen_random_sentence():
     verb_dict = conjugate_verb(verb_dict, tense)
     sentence['verb'] = verb_dict
 
-    # make resulting sentence grammatical
-    sentence = fix(sentence, 'subject')
-
     is_negative = random.randint(0,1)
 
     if is_negative:
-        sentence["negative"] = True
+        sentence["is_negative"] = True
+
+    # make resulting sentence grammatical
+    sentence = fix(sentence, 'subject')
+
+    
 
     #TODO: add logic to deal with noun/verb tags
     # 1. get all objects that are allowable for this verb
