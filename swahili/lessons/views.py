@@ -129,11 +129,23 @@ def fix(sentence, changed_elt, negating=False):
         # fix object prefix
         fixed = sentence
     
+    #if we have just negated this sentence from negate_sentence or un_negate_sentence,
+    #don't try negating again
     if not negating:
+        #the reason for the 'try' here is that the sentence may already
+        #be negated, or may not. We'll try and fix it appropriately,
+        #but it may already be correct, which will cause the NEG_TENSE_MARKER
+        #or REV_NEG_TENSE_MARKER lookups to fail
         if sentence['is_negative']==True:
-            fixed = negate_sentence(fixed)
+            try:
+                fixed = negate_sentence(fixed)
+            except:
+                fixed = fixed
         else:
-            fixed = un_negate_sentence(fixed)
+            try:
+                fixed = un_negate_sentence(fixed)
+            except:
+                fixed = fixed
     
     return fixed
    
