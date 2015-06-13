@@ -202,6 +202,8 @@
 					$($($(matchingOptions[i]).closest(".componentHolder")).find(".userCheck")).data("correct", correctValue.toLowerCase());
 				}
 
+				$(sentenceRow).find(".is_negative").bootstrapSwitch();
+
     			$("#sentences").append(sentenceRow);
 
     			getRandomSentence(sentenceRow);
